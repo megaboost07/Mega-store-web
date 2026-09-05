@@ -2,11 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add Address</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Add Delivery Address</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -15,329 +20,810 @@
 }
 
 body{
-    background:#f5f5f5;
-    padding:20px;
-    color:#111;
+    background:#f1f3f6;
+    color:#212121;
+    min-height:100vh;
+}
+
+.header{
+    background:#2874f0;
+    color:#fff;
+    padding:18px 20px;
+    font-size:20px;
+    font-weight:700;
+    position:sticky;
+    top:0;
+    z-index:10;
 }
 
 .container{
-    max-width:600px;
-    margin:auto;
+    max-width:650px;
+    margin:20px auto;
+    padding:0 15px 30px;
+}
+
+.card{
     background:#fff;
-    border-radius:14px;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.card-header{
     padding:20px;
-    box-shadow:0 4px 20px rgba(0,0,0,.08);
+    border-bottom:1px solid #eee;
 }
 
-h1{
-    font-size:24px;
-    margin-bottom:8px;
+.card-header h1{
+    font-size:21px;
+    margin-bottom:7px;
 }
 
-.description{
-    color:#666;
+.card-header p{
     font-size:14px;
-    margin-bottom:20px;
+    color:#777;
+    line-height:1.5;
+}
+
+.location-section{
+    padding:20px;
+    border-bottom:1px solid #eee;
 }
 
 .location-btn{
     width:100%;
-    padding:16px;
-    border:1px solid #111;
-    background:#111;
+    border:none;
+    background:#2874f0;
     color:#fff;
-    border-radius:10px;
+    padding:16px;
+    border-radius:7px;
     font-size:16px;
     font-weight:bold;
     cursor:pointer;
-    margin-bottom:20px;
 }
 
 .location-btn:active{
-    transform:scale(.98);
+    transform:scale(.99);
+}
+
+.location-btn:disabled{
+    opacity:.65;
+    cursor:not-allowed;
 }
 
 .status{
     display:none;
-    padding:12px;
-    background:#f1f1f1;
-    border-radius:8px;
+    margin-top:15px;
+    padding:13px;
+    border-radius:7px;
     font-size:14px;
-    margin-bottom:15px;
+    line-height:1.5;
 }
 
-.location-box{
-    display:none;
-    background:#f7f7f7;
-    border:1px solid #ddd;
-    padding:15px;
-    border-radius:10px;
-    margin-bottom:20px;
-}
-
-.location-box h3{
-    margin-bottom:10px;
-}
-
-.location-data{
-    font-size:14px;
-    line-height:1.8;
-    word-break:break-word;
-}
-
-label{
+.status.loading{
     display:block;
-    font-size:14px;
-    font-weight:bold;
-    margin:15px 0 7px;
+    background:#e8f0fe;
+    color:#1a73e8;
 }
 
-input, textarea, select{
-    width:100%;
-    padding:14px;
-    border:1px solid #ccc;
+.status.success{
+    display:block;
+    background:#e8f5e9;
+    color:#1b5e20;
+}
+
+.status.error{
+    display:block;
+    background:#ffebee;
+    color:#b71c1c;
+}
+
+.detected-address{
+    display:none;
+    margin-top:15px;
+    padding:15px;
+    background:#f8f9fa;
+    border:1px solid #e5e5e5;
     border-radius:8px;
+}
+
+.detected-address h3{
     font-size:15px;
+    margin-bottom:8px;
+}
+
+.detected-address p{
+    font-size:14px;
+    line-height:1.6;
+    color:#555;
+}
+
+.form-section{
+    padding:20px;
+}
+
+.section-title{
+    font-size:17px;
+    margin-bottom:18px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.full-width{
+    grid-column:1 / -1;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+}
+
+.field label{
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.field input,
+.field textarea,
+.field select{
+    width:100%;
+    border:1px solid #d0d0d0;
+    border-radius:6px;
+    padding:13px;
+    font-size:14px;
     outline:none;
+    background:#fff;
 }
 
-input:focus,
-textarea:focus,
-select:focus{
-    border-color:#111;
-}
-
-textarea{
+.field textarea{
     min-height:90px;
     resize:vertical;
 }
 
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+    border-color:#2874f0;
+    box-shadow:0 0 0 3px rgba(40,116,240,.08);
+}
+
+.coordinates{
+    margin-top:15px;
+    padding:13px;
+    background:#fafafa;
+    border:1px solid #eee;
+    border-radius:7px;
+    display:none;
+}
+
+.coordinates h3{
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.coordinates p{
+    font-size:13px;
+    color:#666;
+    line-height:1.7;
+    word-break:break-all;
+}
+
 .save-btn{
     width:100%;
+    border:none;
+    background:#fb641b;
+    color:#fff;
     padding:16px;
     margin-top:20px;
-    border:none;
-    background:#111;
-    color:#fff;
-    border-radius:10px;
+    border-radius:7px;
     font-size:16px;
     font-weight:bold;
     cursor:pointer;
 }
 
 .save-btn:active{
-    transform:scale(.98);
+    transform:scale(.99);
 }
 
-.note{
-    margin-top:15px;
-    font-size:12px;
-    color:#777;
-    line-height:1.5;
+.saved-section{
+    margin-top:20px;
 }
+
+.saved-card{
+    background:#fff;
+    border-radius:10px;
+    padding:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.saved-card h2{
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+.saved-address-item{
+    padding:15px;
+    border:1px solid #e5e5e5;
+    border-radius:8px;
+    margin-top:10px;
+    background:#fafafa;
+}
+
+.saved-address-item h3{
+    font-size:16px;
+    margin-bottom:7px;
+}
+
+.saved-address-item p{
+    font-size:14px;
+    line-height:1.6;
+    color:#555;
+}
+
+.delete-btn{
+    margin-top:12px;
+    border:none;
+    background:#fff;
+    color:#d32f2f;
+    border:1px solid #d32f2f;
+    padding:9px 14px;
+    border-radius:6px;
+    font-size:13px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+@media(max-width:600px){
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full-width{
+        grid-column:auto;
+    }
+
+}
+
 </style>
 </head>
 
+
 <body>
+
+<div class="header">
+    Delivery Address
+</div>
+
 
 <div class="container">
 
-    <h1>Add Delivery Address</h1>
+    <div class="card">
 
-    <p class="description">
-        Use your current location or enter your address manually.
-    </p>
+        <div class="card-header">
 
-    <button class="location-btn" onclick="getLocation()">
-        Use My Current Location
-    </button>
+            <h1>Add New Address</h1>
 
-    <div class="status" id="status"></div>
+            <p>
+                Use your current location to automatically detect
+                your area, city, district, state and PIN code.
+            </p>
 
-    <div class="location-box" id="locationBox">
-        <h3>Your Current Location</h3>
-
-        <div class="location-data">
-            <strong>Latitude:</strong>
-            <span id="latitude">-</span>
-            <br>
-
-            <strong>Longitude:</strong>
-            <span id="longitude">-</span>
-
-            <input type="hidden" id="latInput">
-            <input type="hidden" id="lngInput">
         </div>
+
+
+        <div class="location-section">
+
+            <button
+                type="button"
+                class="location-btn"
+                id="locationButton"
+                onclick="getCurrentLocation()"
+            >
+                Use My Current Location
+            </button>
+
+
+            <div
+                id="status"
+                class="status"
+            ></div>
+
+
+            <div
+                id="detectedAddress"
+                class="detected-address"
+            >
+
+                <h3>Detected Address</h3>
+
+                <p id="fullAddress">
+                    -
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="form-section">
+
+            <h2 class="section-title">
+                Delivery Address Details
+            </h2>
+
+
+            <form id="addressForm">
+
+
+                <div class="form-grid">
+
+
+                    <div class="field">
+
+                        <label>
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter full name"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label>
+                            Mobile Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="mobile"
+                            placeholder="Enter mobile number"
+                            maxlength="10"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="field full-width">
+
+                        <label>
+                            House / Flat / Building
+                        </label>
+
+                        <input
+                            type="text"
+                            id="house"
+                            placeholder="House number, flat or building"
+                        >
+
+                    </div>
+
+
+
+                    <div class="field full-width">
+
+                        <label>
+                            Road / Street
+                        </label>
+
+                        <input
+                            type="text"
+                            id="road"
+                            placeholder="Road or street name"
+                        >
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label>
+                            Area / Locality
+                        </label>
+
+                        <input
+                            type="text"
+                            id="area"
+                            placeholder="Area or locality"
+                        >
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label>
+                            Village / Town
+                        </label>
+
+                        <input
+                            type="text"
+                            id="village"
+                            placeholder="Village or town"
+                        >
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label>
+                            City
+                        </label>
+
+                        <input
+                            type="text"
+                            id="city"
+                            placeholder="City"
+                        >
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label>
+                            District
+                        </label>
+
+                        <input
+                            type="text"
+                            id="district"
+                            placeholder="District"
+                        >
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label>
+                            State
+                        </label>
+
+                        <input
+                            type="text"
+                            id="state"
+                            placeholder="State"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label>
+                            PIN Code
+                        </label>
+
+                        <input
+                            type="text"
+                            id="pincode"
+                            placeholder="PIN code"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label>
+                            Country
+                        </label>
+
+                        <input
+                            type="text"
+                            id="country"
+                            placeholder="Country"
+                            value="India"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label>
+                            Address Type
+                        </label>
+
+                        <select id="addressType">
+
+                            <option value="Home">
+                                Home
+                            </option>
+
+                            <option value="Work">
+                                Work
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="field full-width">
+
+                        <label>
+                            Landmark
+                        </label>
+
+                        <textarea
+                            id="landmark"
+                            placeholder="Nearby landmark (optional)"
+                        ></textarea>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <input
+                    type="hidden"
+                    id="latitude"
+                >
+
+                <input
+                    type="hidden"
+                    id="longitude"
+                >
+
+
+
+                <div
+                    id="coordinatesBox"
+                    class="coordinates"
+                >
+
+                    <h3>
+                        Location Coordinates
+                    </h3>
+
+                    <p>
+                        Latitude:
+                        <span id="latitudeText">
+                            -
+                        </span>
+                    </p>
+
+                    <p>
+                        Longitude:
+                        <span id="longitudeText">
+                            -
+                        </span>
+                    </p>
+
+                </div>
+
+
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                >
+                    Save Delivery Address
+                </button>
+
+
+            </form>
+
+        </div>
+
     </div>
 
 
-    <form id="addressForm">
 
-        <label>Full Name</label>
-        <input
-            type="text"
-            id="name"
-            placeholder="Enter your full name"
-            required
-        >
+    <div class="saved-section">
 
-        <label>Mobile Number</label>
-        <input
-            type="tel"
-            id="mobile"
-            placeholder="Enter mobile number"
-            required
-        >
+        <div class="saved-card">
 
-        <label>House No / Flat / Building</label>
-        <input
-            type="text"
-            id="house"
-            placeholder="House number, flat or building"
-            required
-        >
+            <h2>
+                Saved Address
+            </h2>
 
-        <label>Area / Village / Locality</label>
-        <input
-            type="text"
-            id="area"
-            placeholder="Enter area or village"
-            required
-        >
+            <div id="savedAddresses">
 
-        <label>City / District</label>
-        <input
-            type="text"
-            id="city"
-            placeholder="Enter city or district"
-            required
-        >
+                No saved address yet.
 
-        <label>State</label>
-        <input
-            type="text"
-            id="state"
-            placeholder="Enter state"
-            required
-        >
+            </div>
 
-        <label>PIN Code</label>
-        <input
-            type="number"
-            id="pincode"
-            placeholder="Enter PIN code"
-            required
-        >
+        </div>
 
-        <label>Address Type</label>
-        <select id="addressType">
-            <option value="Home">Home</option>
-            <option value="Work">Work</option>
-            <option value="Other">Other</option>
-        </select>
+    </div>
 
-        <label>Landmark (Optional)</label>
-        <textarea
-            id="landmark"
-            placeholder="Enter nearby landmark"
-        ></textarea>
-
-        <button type="submit" class="save-btn">
-            Save Address
-        </button>
-
-    </form>
-
-    <p class="note">
-        Your browser will ask for location permission when you click
-        "Use My Current Location".
-    </p>
 
 </div>
 
 
+
 <script>
 
-function getLocation(){
 
-    const status = document.getElementById("status");
+function showStatus(message,type){
+
+    const status =
+    document.getElementById("status");
+
+    status.innerHTML =
+    message;
+
+    status.className =
+    "status " + type;
+
+}
+
+
+
+function getCurrentLocation(){
+
+    const button =
+    document.getElementById("locationButton");
+
 
     if(!navigator.geolocation){
 
-        status.style.display = "block";
-        status.innerHTML =
-            "Your browser does not support location detection.";
+        showStatus(
+            "Your browser does not support location detection.",
+            "error"
+        );
 
         return;
+
     }
 
-    status.style.display = "block";
-    status.innerHTML = "Getting your current location...";
+
+    button.disabled = true;
+
+    button.innerHTML =
+    "Detecting Your Location...";
+
+
+    showStatus(
+        "Please allow location permission. Detecting your current location...",
+        "loading"
+    );
+
 
     navigator.geolocation.getCurrentPosition(
 
         function(position){
 
             const latitude =
-                position.coords.latitude;
+            position.coords.latitude;
 
             const longitude =
-                position.coords.longitude;
+            position.coords.longitude;
+
 
             document.getElementById("latitude")
-                .innerText = latitude;
+            .value = latitude;
 
             document.getElementById("longitude")
-                .innerText = longitude;
+            .value = longitude;
 
-            document.getElementById("latInput")
-                .value = latitude;
 
-            document.getElementById("lngInput")
-                .value = longitude;
+            document.getElementById("latitudeText")
+            .innerText = latitude;
 
-            document.getElementById("locationBox")
-                .style.display = "block";
+            document.getElementById("longitudeText")
+            .innerText = longitude;
 
-            status.innerHTML =
-                "Current location detected successfully.";
+
+            document.getElementById("coordinatesBox")
+            .style.display = "block";
+
+
+            showStatus(
+                "Location detected. Getting full address details...",
+                "loading"
+            );
+
+
+            getAddressFromCoordinates(
+                latitude,
+                longitude
+            );
 
         },
+
 
         function(error){
 
-            let message = "";
+            let message =
+            "";
 
-            switch(error.code){
 
-                case error.PERMISSION_DENIED:
-                    message =
-                    "Location permission was denied.";
-                    break;
+            if(
+                error.code === error.PERMISSION_DENIED
+            ){
 
-                case error.POSITION_UNAVAILABLE:
-                    message =
-                    "Location information is unavailable.";
-                    break;
+                message =
+                "Location permission was denied. Please allow location access and try again.";
 
-                case error.TIMEOUT:
-                    message =
-                    "Location request timed out.";
-                    break;
-
-                default:
-                    message =
-                    "Unable to detect your location.";
             }
 
-            status.innerHTML = message;
+            else if(
+                error.code === error.POSITION_UNAVAILABLE
+            ){
+
+                message =
+                "Location information is currently unavailable.";
+
+            }
+
+            else if(
+                error.code === error.TIMEOUT
+            ){
+
+                message =
+                "Location request timed out. Please try again.";
+
+            }
+
+            else{
+
+                message =
+                "Unable to detect your location.";
+
+            }
+
+
+            showStatus(
+                message,
+                "error"
+            );
+
+
+            button.disabled = false;
+
+            button.innerHTML =
+            "Use My Current Location";
 
         },
 
+
         {
+
             enableHighAccuracy:true,
-            timeout:10000,
+
+            timeout:15000,
+
             maximumAge:0
+
         }
 
     );
@@ -345,62 +831,589 @@ function getLocation(){
 }
 
 
-document.getElementById("addressForm")
-.addEventListener("submit", function(e){
 
-    e.preventDefault();
+async function getAddressFromCoordinates(
 
-    const addressData = {
+    latitude,
+    longitude
 
-        name:
-        document.getElementById("name").value,
+){
 
-        mobile:
-        document.getElementById("mobile").value,
-
-        house:
-        document.getElementById("house").value,
-
-        area:
-        document.getElementById("area").value,
-
-        city:
-        document.getElementById("city").value,
-
-        state:
-        document.getElementById("state").value,
-
-        pincode:
-        document.getElementById("pincode").value,
-
-        addressType:
-        document.getElementById("addressType").value,
-
-        landmark:
-        document.getElementById("landmark").value,
-
-        latitude:
-        document.getElementById("latInput").value,
-
-        longitude:
-        document.getElementById("lngInput").value
-
-    };
+    try{
 
 
-    localStorage.setItem(
-        "savedAddress",
-        JSON.stringify(addressData)
+        const url =
+        "https://nominatim.openstreetmap.org/reverse" +
+        "?format=jsonv2" +
+        "&lat=" + latitude +
+        "&lon=" + longitude +
+        "&addressdetails=1" +
+        "&accept-language=en";
+
+
+        const response =
+        await fetch(url);
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "Address service unavailable"
+            );
+
+        }
+
+
+        const data =
+        await response.json();
+
+
+        const address =
+        data.address || {};
+
+
+        fillAddressFields(
+            address
+        );
+
+
+        document.getElementById("fullAddress")
+        .innerText =
+        data.display_name ||
+        "Address detected successfully";
+
+
+        document.getElementById("detectedAddress")
+        .style.display = "block";
+
+
+        showStatus(
+            "Your address has been detected successfully. Please check and edit any field if necessary.",
+            "success"
+        );
+
+
+    }
+
+    catch(error){
+
+
+        showStatus(
+            "Your GPS location was detected, but full address details could not be loaded. Please enter the address manually.",
+            "error"
+        );
+
+
+    }
+
+
+    const button =
+    document.getElementById("locationButton");
+
+
+    button.disabled =
+    false;
+
+
+    button.innerHTML =
+    "Update My Current Location";
+
+}
+
+
+
+function fillAddressFields(address){
+
+
+    const house =
+
+    address.house_number ||
+
+    address.building ||
+
+    address.house ||
+
+    "";
+
+
+    const road =
+
+    address.road ||
+
+    address.pedestrian ||
+
+    address.residential ||
+
+    address.footway ||
+
+    "";
+
+
+    const area =
+
+    address.neighbourhood ||
+
+    address.suburb ||
+
+    address.quarter ||
+
+    address.residential ||
+
+    address.locality ||
+
+    "";
+
+
+    const village =
+
+    address.village ||
+
+    address.town ||
+
+    address.hamlet ||
+
+    address.municipality ||
+
+    "";
+
+
+    const city =
+
+    address.city ||
+
+    address.town ||
+
+    address.city_district ||
+
+    address.municipality ||
+
+    address.village ||
+
+    "";
+
+
+    const district =
+
+    address.state_district ||
+
+    address.county ||
+
+    address.district ||
+
+    address.city_district ||
+
+    "";
+
+
+    const state =
+
+    address.state ||
+
+    "";
+
+
+    const pincode =
+
+    address.postcode ||
+
+    "";
+
+
+    const country =
+
+    address.country ||
+
+    "India";
+
+
+    document.getElementById("house")
+    .value = house;
+
+
+    document.getElementById("road")
+    .value = road;
+
+
+    document.getElementById("area")
+    .value = area;
+
+
+    document.getElementById("village")
+    .value = village;
+
+
+    document.getElementById("city")
+    .value = city;
+
+
+    document.getElementById("district")
+    .value = district;
+
+
+    document.getElementById("state")
+    .value = state;
+
+
+    document.getElementById("pincode")
+    .value = pincode;
+
+
+    document.getElementById("country")
+    .value = country;
+
+}
+
+
+
+document
+.getElementById("addressForm")
+.addEventListener(
+
+    "submit",
+
+    function(event){
+
+        event.preventDefault();
+
+
+        const addressData = {
+
+
+            id:
+            Date.now(),
+
+
+            name:
+            document.getElementById("name").value,
+
+
+            mobile:
+            document.getElementById("mobile").value,
+
+
+            house:
+            document.getElementById("house").value,
+
+
+            road:
+            document.getElementById("road").value,
+
+
+            area:
+            document.getElementById("area").value,
+
+
+            village:
+            document.getElementById("village").value,
+
+
+            city:
+            document.getElementById("city").value,
+
+
+            district:
+            document.getElementById("district").value,
+
+
+            state:
+            document.getElementById("state").value,
+
+
+            pincode:
+            document.getElementById("pincode").value,
+
+
+            country:
+            document.getElementById("country").value,
+
+
+            landmark:
+            document.getElementById("landmark").value,
+
+
+            addressType:
+            document.getElementById("addressType").value,
+
+
+            latitude:
+            document.getElementById("latitude").value,
+
+
+            longitude:
+            document.getElementById("longitude").value
+
+
+        };
+
+
+        let addresses =
+
+        JSON.parse(
+
+            localStorage.getItem(
+                "ecommerceAddresses"
+            )
+
+        ) || [];
+
+
+        addresses.push(
+            addressData
+        );
+
+
+        localStorage.setItem(
+
+            "ecommerceAddresses",
+
+            JSON.stringify(
+                addresses
+            )
+
+        );
+
+
+        alert(
+            "Address saved successfully!"
+        );
+
+
+        document
+        .getElementById("addressForm")
+        .reset();
+
+
+        document
+        .getElementById("coordinatesBox")
+        .style.display =
+        "none";
+
+
+        document
+        .getElementById("detectedAddress")
+        .style.display =
+        "none";
+
+
+        document
+        .getElementById("latitude")
+        .value =
+        "";
+
+
+        document
+        .getElementById("longitude")
+        .value =
+        "";
+
+
+        loadSavedAddresses();
+
+    }
+
+);
+
+
+
+function loadSavedAddresses(){
+
+
+    const container =
+
+    document.getElementById(
+        "savedAddresses"
     );
 
 
-    alert("Address saved successfully!");
+    const addresses =
 
-    console.log(addressData);
+    JSON.parse(
 
-});
+        localStorage.getItem(
+            "ecommerceAddresses"
+        )
+
+    ) || [];
+
+
+    if(
+        addresses.length === 0
+    ){
+
+        container.innerHTML =
+        "No saved address yet.";
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+    "";
+
+
+    addresses
+    .slice()
+    .reverse()
+    .forEach(
+
+        function(address){
+
+
+            const div =
+
+            document.createElement(
+                "div"
+            );
+
+
+            div.className =
+            "saved-address-item";
+
+
+            div.innerHTML =
+
+            "<h3>" +
+
+            escapeHtml(
+                address.name
+            ) +
+
+            " (" +
+
+            escapeHtml(
+                address.addressType
+            ) +
+
+            ")" +
+
+            "</h3>" +
+
+
+            "<p>" +
+
+            [
+                address.house,
+                address.road,
+                address.area,
+                address.village,
+                address.city,
+                address.district,
+                address.state,
+                address.pincode,
+                address.country
+            ]
+
+            .filter(Boolean)
+
+            .map(escapeHtml)
+
+            .join(", ") +
+
+            "</p>" +
+
+
+            "<p>" +
+
+            "Mobile: " +
+
+            escapeHtml(
+                address.mobile
+            ) +
+
+            "</p>" +
+
+
+            "<button " +
+
+            "class='delete-btn' " +
+
+            "onclick='deleteAddress(" +
+
+            address.id +
+
+            ")'>" +
+
+            "Delete Address" +
+
+            "</button>";
+
+
+            container.appendChild(
+                div
+            );
+
+        }
+
+    );
+
+}
+
+
+
+function deleteAddress(id){
+
+
+    let addresses =
+
+    JSON.parse(
+
+        localStorage.getItem(
+            "ecommerceAddresses"
+        )
+
+    ) || [];
+
+
+    addresses =
+
+    addresses.filter(
+
+        function(address){
+
+            return address.id !== id;
+
+        }
+
+    );
+
+
+    localStorage.setItem(
+
+        "ecommerceAddresses",
+
+        JSON.stringify(
+            addresses
+        )
+
+    );
+
+
+    loadSavedAddresses();
+
+}
+
+
+
+function escapeHtml(value){
+
+    const div =
+    document.createElement("div");
+
+    div.innerText =
+    value || "";
+
+    return div.innerHTML;
+
+}
+
+
+
+loadSavedAddresses();
+
 
 </script>
+
 
 </body>
 </html>
