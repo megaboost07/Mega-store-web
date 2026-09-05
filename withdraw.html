@@ -1,308 +1,406 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Withdraw Earnings - Get Paid via UPI | Axon AI Shortener</title>
-    <meta name="description" content="Withdraw your earnings from Axon AI Shortener. Minimum payout ₹100. Get paid directly to your UPI ID within 24-48 hours.">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Add Address</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5f5f5;
+    padding:20px;
+    color:#111;
+}
+
+.container{
+    max-width:600px;
+    margin:auto;
+    background:#fff;
+    border-radius:14px;
+    padding:20px;
+    box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+
+h1{
+    font-size:24px;
+    margin-bottom:8px;
+}
+
+.description{
+    color:#666;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+.location-btn{
+    width:100%;
+    padding:16px;
+    border:1px solid #111;
+    background:#111;
+    color:#fff;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+
+.location-btn:active{
+    transform:scale(.98);
+}
+
+.status{
+    display:none;
+    padding:12px;
+    background:#f1f1f1;
+    border-radius:8px;
+    font-size:14px;
+    margin-bottom:15px;
+}
+
+.location-box{
+    display:none;
+    background:#f7f7f7;
+    border:1px solid #ddd;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+.location-box h3{
+    margin-bottom:10px;
+}
+
+.location-data{
+    font-size:14px;
+    line-height:1.8;
+    word-break:break-word;
+}
+
+label{
+    display:block;
+    font-size:14px;
+    font-weight:bold;
+    margin:15px 0 7px;
+}
+
+input, textarea, select{
+    width:100%;
+    padding:14px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#111;
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+.save-btn{
+    width:100%;
+    padding:16px;
+    margin-top:20px;
+    border:none;
+    background:#111;
+    color:#fff;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.save-btn:active{
+    transform:scale(.98);
+}
+
+.note{
+    margin-top:15px;
+    font-size:12px;
+    color:#777;
+    line-height:1.5;
+}
+</style>
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <div class="logo-icon">🔗</div>
-                Axon AI
-            </a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shortener.html">Shortener</a></li>
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="withdraw.html" class="active">Withdraw</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <a href="withdraw.html" class="btn btn-success btn-sm">
-                    <i class="fas fa-wallet"></i> ₹<span id="navBalance">0.00</span>
-                </a>
-                <button class="btn btn-danger btn-sm" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i>
-                </button>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Withdraw Section -->
-    <section class="section" style="padding-top: 40px;">
-        <div class="container">
-            <div class="section-header">
-                <h2><i class="fas fa-money-bill-wave" style="color: var(--success);"></i> Withdraw Your Earnings</h2>
-                <p>Get paid directly to your UPI ID. Fast, secure, and hassle-free withdrawals.</p>
-            </div>
+<div class="container">
 
-            <!-- Balance Cards -->
-            <div class="stats-grid" style="margin-bottom: 2rem;">
-                <div class="stat-card" style="background: var(--gradient-1); color: white;">
-                    <div class="stat-icon" style="background: rgba(255,255,255,0.2); color: white;">
-                        <i class="fas fa-wallet"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h4 style="color: white;">₹<span id="availableBalance">0.00</span></h4>
-                        <p style="color: rgba(255,255,255,0.8);">Available Balance</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon warning">
-                        <i class="fas fa-rupee-sign"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h4>₹<span id="totalEarned">0.00</span></h4>
-                        <p>Total Earned</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon success">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h4>₹<span id="totalWithdrawn">0.00</span></h4>
-                        <p>Total Withdrawn</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon primary">
-                        <i class="fas fa-hourglass-half"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h4>₹<span id="pendingAmount">0.00</span></h4>
-                        <p>Pending</p>
-                    </div>
-                </div>
-            </div>
+    <h1>Add Delivery Address</h1>
 
-            <!-- Minimum Payout Notice -->
-            <div class="card" style="margin-bottom: 2rem; border-left: 4px solid var(--success);">
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <i class="fas fa-info-circle" style="font-size: 2rem; color: var(--success);"></i>
-                    <div>
-                        <h4 style="margin-bottom: 0.25rem;">Minimum Payout: ₹100</h4>
-                        <p style="margin: 0; color: var(--text-muted);">You can request withdrawal once your available balance reaches ₹100. Payments are processed within 24-48 hours.</p>
-                    </div>
-                </div>
-            </div>
+    <p class="description">
+        Use your current location or enter your address manually.
+    </p>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                <!-- Withdrawal Form -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-paper-plane"></i> Request Withdrawal</h3>
-                        <p class="card-subtitle">Fill in your details to get paid</p>
-                    </div>
-                    
-                    <form id="withdrawForm">
-                        <div class="form-group">
-                            <label class="form-label">
-                                <i class="fas fa-user"></i> Full Name
-                            </label>
-                            <input type="text" class="form-input" id="withdrawName" placeholder="Enter your full name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">
-                                <i class="fas fa-phone"></i> Phone Number
-                            </label>
-                            <input type="tel" class="form-input" id="withdrawPhone" placeholder="Enter your phone number" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">
-                                <i class="fas fa-university"></i> UPI ID
-                            </label>
-                            <input type="text" class="form-input" id="withdrawUpi" placeholder="yourname@upi" required>
-                            <small style="color: var(--text-muted);">
-                                <i class="fas fa-shield-alt"></i> Your payment will be sent to this UPI ID
-                            </small>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">
-                                <i class="fas fa-rupee-sign"></i> Withdrawal Amount
-                            </label>
-                            <input type="number" class="form-input" id="withdrawAmount" placeholder="Enter amount" min="100" required>
-                            <small style="color: var(--text-muted);">
-                                <i class="fas fa-info-circle"></i> Available: ₹<span id="formBalance">0.00</span>
-                            </small>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-success btn-block" id="withdrawSubmitBtn">
-                            <i class="fas fa-paper-plane"></i>
-                            Request Withdrawal
-                        </button>
-                    </form>
-                </div>
+    <button class="location-btn" onclick="getLocation()">
+        Use My Current Location
+    </button>
 
-                <!-- Withdrawal Info -->
-                <div>
-                    <div class="card" style="margin-bottom: 1.5rem;">
-                        <div class="card-header">
-                            <h3 class="card-title"><i class="fas fa-info-circle"></i> Payment Information</h3>
-                        </div>
-                        <div style="color: var(--text-secondary);">
-                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; padding: 1rem; background: var(--bg-primary); border-radius: var(--radius);">
-                                <i class="fas fa-clock" style="color: var(--primary); font-size: 1.5rem;"></i>
-                                <div>
-                                    <h5 style="margin-bottom: 0.25rem;">Processing Time</h5>
-                                    <p style="margin: 0; font-size: 0.9rem;">24-48 hours</p>
-                                </div>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; padding: 1rem; background: var(--bg-primary); border-radius: var(--radius);">
-                                <i class="fas fa-university" style="color: var(--success); font-size: 1.5rem;"></i>
-                                <div>
-                                    <h5 style="margin-bottom: 0.25rem;">Payment Method</h5>
-                                    <p style="margin: 0; font-size: 0.9rem;">UPI (Unified Payments Interface)</p>
-                                </div>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-primary); border-radius: var(--radius);">
-                                <i class="fas fa-shield-alt" style="color: var(--warning); font-size: 1.5rem;"></i>
-                                <div>
-                                    <h5 style="margin-bottom: 0.25rem;">Security</h5>
-                                    <p style="margin: 0; font-size: 0.9rem;">All transactions are encrypted and secure</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="status" id="status"></div>
 
-                    <!-- Supported UPI Apps -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title"><i class="fas fa-mobile-alt"></i> Supported UPI Apps</h3>
-                        </div>
-                        <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
-                            <div style="padding: 0.75rem 1rem; background: var(--bg-primary); border-radius: var(--radius); display: flex; align-items: center; gap: 0.5rem;">
-                                <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                                <span>Google Pay</span>
-                            </div>
-                            <div style="padding: 0.75rem 1rem; background: var(--bg-primary); border-radius: var(--radius); display: flex; align-items: center; gap: 0.5rem;">
-                                <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                                <span>PhonePe</span>
-                            </div>
-                            <div style="padding: 0.75rem 1rem; background: var(--bg-primary); border-radius: var(--radius); display: flex; align-items: center; gap: 0.5rem;">
-                                <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                                <span>Paytm</span>
-                            </div>
-                            <div style="padding: 0.75rem 1rem; background: var(--bg-primary); border-radius: var(--radius); display: flex; align-items: center; gap: 0.5rem;">
-                                <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                                <span>Amazon Pay</span>
-                            </div>
-                            <div style="padding: 0.75rem 1rem; background: var(--bg-primary); border-radius: var(--radius); display: flex; align-items: center; gap: 0.5rem;">
-                                <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                                <span>BHIM</span>
-                            </div>
-                            <div style="padding: 0.75rem 1rem; background: var(--bg-primary); border-radius: var(--radius); display: flex; align-items: center; gap: 0.5rem;">
-                                <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                                <span>All UPI Apps</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="location-box" id="locationBox">
+        <h3>Your Current Location</h3>
 
-            <!-- Withdrawal History -->
-            <div class="card" style="margin-top: 2rem;">
-                <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-history"></i> Withdrawal History</h3>
-                    <p class="card-subtitle">Track all your withdrawal requests</p>
-                </div>
-                <div class="table-container">
-                    <table class="data-table" id="withdrawHistoryTable">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>UPI ID</th>
-                                <th>Amount</th>
-                                <th>Status</th>
-                                <th>Processed Date</th>
-                            </tr>
-                        </thead>
-                        <tbody id="withdrawHistoryBody">
-                            <!-- Dynamic content -->
-                        </tbody>
-                    </table>
-                </div>
-                <div id="emptyWithdrawals" class="empty-state">
-                    <i class="fas fa-wallet"></i>
-                    <h4>No withdrawals yet</h4>
-                    <p>Your withdrawal history will appear here</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        <div class="location-data">
+            <strong>Latitude:</strong>
+            <span id="latitude">-</span>
+            <br>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <a href="index.html" class="logo">
-                        <div class="logo-icon">🔗</div>
-                        Axon AI
-                    </a>
-                    <p>India's highest paying URL shortener.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="dashboard.html">Dashboard</a></li>
-                        <li><a href="withdraw.html">Withdraw</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="terms.html">Terms & Conditions</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Axon AI Shortener. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+            <strong>Longitude:</strong>
+            <span id="longitude">-</span>
 
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-content">
-            <div class="spinner"></div>
-            <p>Processing withdrawal...</p>
+            <input type="hidden" id="latInput">
+            <input type="hidden" id="lngInput">
         </div>
     </div>
 
-    <!-- Notification -->
-    <div class="notification" id="notification"></div>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    
-    <!-- Main Script -->
-    <script src="script.js"></script>
+    <form id="addressForm">
+
+        <label>Full Name</label>
+        <input
+            type="text"
+            id="name"
+            placeholder="Enter your full name"
+            required
+        >
+
+        <label>Mobile Number</label>
+        <input
+            type="tel"
+            id="mobile"
+            placeholder="Enter mobile number"
+            required
+        >
+
+        <label>House No / Flat / Building</label>
+        <input
+            type="text"
+            id="house"
+            placeholder="House number, flat or building"
+            required
+        >
+
+        <label>Area / Village / Locality</label>
+        <input
+            type="text"
+            id="area"
+            placeholder="Enter area or village"
+            required
+        >
+
+        <label>City / District</label>
+        <input
+            type="text"
+            id="city"
+            placeholder="Enter city or district"
+            required
+        >
+
+        <label>State</label>
+        <input
+            type="text"
+            id="state"
+            placeholder="Enter state"
+            required
+        >
+
+        <label>PIN Code</label>
+        <input
+            type="number"
+            id="pincode"
+            placeholder="Enter PIN code"
+            required
+        >
+
+        <label>Address Type</label>
+        <select id="addressType">
+            <option value="Home">Home</option>
+            <option value="Work">Work</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label>Landmark (Optional)</label>
+        <textarea
+            id="landmark"
+            placeholder="Enter nearby landmark"
+        ></textarea>
+
+        <button type="submit" class="save-btn">
+            Save Address
+        </button>
+
+    </form>
+
+    <p class="note">
+        Your browser will ask for location permission when you click
+        "Use My Current Location".
+    </p>
+
+</div>
+
+
+<script>
+
+function getLocation(){
+
+    const status = document.getElementById("status");
+
+    if(!navigator.geolocation){
+
+        status.style.display = "block";
+        status.innerHTML =
+            "Your browser does not support location detection.";
+
+        return;
+    }
+
+    status.style.display = "block";
+    status.innerHTML = "Getting your current location...";
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            const latitude =
+                position.coords.latitude;
+
+            const longitude =
+                position.coords.longitude;
+
+            document.getElementById("latitude")
+                .innerText = latitude;
+
+            document.getElementById("longitude")
+                .innerText = longitude;
+
+            document.getElementById("latInput")
+                .value = latitude;
+
+            document.getElementById("lngInput")
+                .value = longitude;
+
+            document.getElementById("locationBox")
+                .style.display = "block";
+
+            status.innerHTML =
+                "Current location detected successfully.";
+
+        },
+
+        function(error){
+
+            let message = "";
+
+            switch(error.code){
+
+                case error.PERMISSION_DENIED:
+                    message =
+                    "Location permission was denied.";
+                    break;
+
+                case error.POSITION_UNAVAILABLE:
+                    message =
+                    "Location information is unavailable.";
+                    break;
+
+                case error.TIMEOUT:
+                    message =
+                    "Location request timed out.";
+                    break;
+
+                default:
+                    message =
+                    "Unable to detect your location.";
+            }
+
+            status.innerHTML = message;
+
+        },
+
+        {
+            enableHighAccuracy:true,
+            timeout:10000,
+            maximumAge:0
+        }
+
+    );
+
+}
+
+
+document.getElementById("addressForm")
+.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const addressData = {
+
+        name:
+        document.getElementById("name").value,
+
+        mobile:
+        document.getElementById("mobile").value,
+
+        house:
+        document.getElementById("house").value,
+
+        area:
+        document.getElementById("area").value,
+
+        city:
+        document.getElementById("city").value,
+
+        state:
+        document.getElementById("state").value,
+
+        pincode:
+        document.getElementById("pincode").value,
+
+        addressType:
+        document.getElementById("addressType").value,
+
+        landmark:
+        document.getElementById("landmark").value,
+
+        latitude:
+        document.getElementById("latInput").value,
+
+        longitude:
+        document.getElementById("lngInput").value
+
+    };
+
+
+    localStorage.setItem(
+        "savedAddress",
+        JSON.stringify(addressData)
+    );
+
+
+    alert("Address saved successfully!");
+
+    console.log(addressData);
+
+});
+
+</script>
+
 </body>
 </html>
